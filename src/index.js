@@ -1,9 +1,3 @@
-/*!
- * response.js 0.9.0+201404091831
- * https://github.com/ryanve/response.js
- * MIT License (c) 2014 Ryan Van Etten
- */
-
 (function(root, name, make) {
   var $ = root['jQuery'] || root['Zepto'] || root['ender'] || root['elo'];
   if (typeof module != 'undefined' && module['exports']) module['exports'] = make($);
@@ -571,20 +565,8 @@
       , i: 0  // integer, the index of the current highest active breakpoint min
       , uid: null
 
-      , _decideValue: function() {
-              var subjects = this.breakpoints
-                  , i = subjects.length
-                  , tempIndex = 0;
-
-              // This is similar to the decideValue loop
-              while( !tempIndex && i-- ) {
-                  this.fn(subjects[i]) && (tempIndex = i);
-              }
-
-              return tempIndex;
-      }
       , reset: function() {
-          var subjects = this.breakpoints, i = subjects.length, tempIndex = this._decideValue();
+          var subjects = this.breakpoints, i = subjects.length, tempIndex = 0;
           while (!tempIndex && i--) this.fn(subjects[i]) && (tempIndex = i);
           if (tempIndex !== this.i) {
             // Crossover occurred. Fire the crossover events:
@@ -641,7 +623,6 @@
           }
 
           sets.all = sets.all.concat(sets[this.uid] = this.keys); // combined keys ===> sets.all
-          this.i = this._decideValue();
           return this;
         }
 
